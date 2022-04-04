@@ -1,0 +1,31 @@
+mport numpy_financial as npf
+
+#####   FASE 1   #####
+# Flujos de caja de los bonos
+bonoA = [0,100,100,100,1100]     # inicialmente el flujo de caja inicial es cero
+
+
+# Calcular el precio de los bonos dada la ETTI
+etti = [.1, .2, .3 .4 .5]
+def precio_etti(flujos, etti):
+    precio = 0
+    for i in range(1, len(flujos)):
+        precio += flujos[i] * (1+etti[i-1])**-i
+    return precio
+
+precioA = precio_etti(bonoA, etti)
+
+print(f"El precio del bono A es {precioA:,.2f} €")
+
+print()
+
+# Calcular la TIR de los bonos
+bonoA[0] = -precioA
+
+
+tirA = npf.irr(bonoA)
+
+
+print(f"La TIR del bono A es: {tirA:.2%}")
+
+print()
